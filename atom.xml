@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Janeeer.github.io</id>
     <title>Elsemin Wei</title>
-    <updated>2020-10-23T04:14:04.362Z</updated>
+    <updated>2020-10-23T04:23:27.791Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Janeeer.github.io"/>
     <link rel="self" href="https://Janeeer.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>千里之行始于足下</subtitle>
     <logo>https://Janeeer.github.io/images/avatar.png</logo>
     <icon>https://Janeeer.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Elsemin Wei</rights>
