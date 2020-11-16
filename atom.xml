@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Janeeer.github.io</id>
     <title>Elsemin Wei</title>
-    <updated>2020-11-16T09:03:31.306Z</updated>
+    <updated>2020-11-16T09:43:13.977Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Janeeer.github.io"/>
     <link rel="self" href="https://Janeeer.github.io/atom.xml"/>
@@ -10,15 +10,6 @@
     <logo>https://Janeeer.github.io/images/avatar.png</logo>
     <icon>https://Janeeer.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Elsemin Wei</rights>
-    <entry>
-        <title type="html"><![CDATA[关于]]></title>
-        <id>https://Janeeer.github.io/post/about/</id>
-        <link href="https://Janeeer.github.io/post/about/">
-        </link>
-        <updated>2020-11-16T07:34:48.000Z</updated>
-        <content type="html"><![CDATA[<p>wuwu</p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[Hello]]></title>
         <id>https://Janeeer.github.io/post/hello/</id>
