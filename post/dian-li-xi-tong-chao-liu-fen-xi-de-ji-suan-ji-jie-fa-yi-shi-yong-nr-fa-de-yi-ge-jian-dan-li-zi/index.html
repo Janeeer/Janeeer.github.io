@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" >
 
-<title>电力系统潮流分析的计算机解法（一）使用NR法的一个简单例子 | Elsemin Wei</title>
+<title>电力系统潮流分析的计算机解法（一）使用NR法的一个简单例子 | Jane Wei</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://Janeeer.github.io/favicon.ico?v=1605805237931">
+<link rel="shortcut icon" href="https://Janeeer.github.io/favicon.ico?v=1605806054160">
 <link rel="stylesheet" href="https://Janeeer.github.io/styles/main.css">
 
 
@@ -24,9 +24,10 @@
 
 
 
-    <meta name="description" content="潮流计算相关的文章有很多，本篇想用一个简单的例子展示Newton-Raphson法做潮流计算的过程，以便理解算法，理清潮流计算的思路。
+    <meta name="description" content="潮流计算相关的文章有很多，本篇想通过一个简单的例子展示Newton-Raphson法做潮流计算的过程，以便理解算法，理清潮流计算的思路。
+
 简单介绍
-潮流问题是给出 负载端消耗的有功和无功功率，及发电机端的机端电压大小和注入有功功率，来获取电力..." />
+潮流问题是给出 负载端消耗的有功和无功功率，及发电机端的机端电压大小和注入有功功率，来获取..." />
     <meta name="keywords" content="matlab,算法,潮流计算" />
   </head>
   <body>
@@ -36,8 +37,8 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://Janeeer.github.io">
-        <img src="https://Janeeer.github.io/images/avatar.png?v=1605805237931" class="site-logo">
-        <h1 class="site-title">Elsemin Wei</h1>
+        <img src="https://Janeeer.github.io/images/avatar.png?v=1605806054160" class="site-logo">
+        <h1 class="site-title">Jane Wei</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
         <div class="line"></div>
@@ -96,7 +97,8 @@
             <div class="post-date">2020-11-20</div>
             
             <div class="post-content" v-pre>
-              <p>潮流计算相关的文章有很多，本篇想用一个简单的例子展示Newton-Raphson法做潮流计算的过程，以便理解算法，理清潮流计算的思路。</p>
+              <p>潮流计算相关的文章有很多，本篇想通过一个简单的例子展示Newton-Raphson法做潮流计算的过程，以便理解算法，理清潮流计算的思路。</p>
+<!-- more -->
 <h2 id="简单介绍">简单介绍</h2>
 <p>潮流问题是给出 负载端消耗的有功和无功功率，及发电机端的机端电压大小和注入有功功率，来获取电力系统中 每个母线的电压相角和幅值信息，进一步可以通过数值确定每个分支上的有功和无功功率流以及发电机无功功率输出。也就是最终可以画出类似这样的运行示意图：<br>
 <img src="https://Janeeer.github.io/post-images/1605803198010.png" alt="" loading="lazy"><br>
@@ -174,20 +176,14 @@ matlab代码实现如下：首先列写P、Q及雅可比矩阵J与U、θ 的关�
 1.0063646</p>
 <p>可以看到，示例代码里调用了很多matlab自带的函数，其中有几处可以继续做文章：</p>
 <ul>
-<li>
-<p>从NR法介绍可以看出，它老老实实计算了完整的雅可比矩阵，而实际线路中电阻值远小于电抗值，从功率方程可以看到无功功率与电压大小密切相关，而有功功率与电压相角密切相关，根据这个特点，可以采用PQ解耦法来简化迭代方程，基本将雅可比矩阵换成了节点导纳矩阵。还有XB快速解耦法和BX方法，这两种方法都是对PQ解耦法的进一步简化，只是简化过程中忽略的参量不同。</p>
-</li>
-<li>
-<p>如果使用NR法进行潮流计算，需要生成雅可比矩阵，若不直接用jacobian函数，可以采用手动求解法和自动微分法。</p>
-</li>
-<li>
-<p>除了NR迭代法，还有Gauss-Seidel迭代法，若进一步在迭代过程中引入松弛因子可以加速收敛速度，即SOR方法。</p>
-</li>
-<li>
-<p>对于最关键的一步——求解迭代线性方程组，示例代码直接调用inv函数，也可以选用其他线性方程组数值求解的算法，如<strong>LU分解，共轭梯度法(CG)，全正交化法(FOM)及广义最小残量法(GMRES)，而且由于系数矩阵含有大量零元素，还可以利用稀疏矩阵算法进行优化。</strong></p>
-<p>线性方程组求解这部分将会在接下来的博文中继续介绍~</p>
-</li>
+<li>从NR法介绍可以看出，它老老实实计算了完整的雅可比矩阵，而实际线路中电阻值远小于电抗值，从功率方程可以看到无功功率与电压大小密切相关，而有功功率与电压相角密切相关，根据这个特点，可以采用PQ解耦法来简化迭代方程，基本将雅可比矩阵换成了节点导纳矩阵。还有XB快速解耦法和BX方法，这两种方法都是对PQ解耦法的进一步简化，只是简化过程中忽略的参量不同。</li>
+<li>如果使用NR法进行潮流计算，需要生成雅可比矩阵，若不直接用jacobian函数，可以采用手动求解法和自动微分法。</li>
+<li>除了NR迭代法，还有Gauss-Seidel迭代法，若进一步在迭代过程中引入松弛因子可以加速收敛速度，即SOR方法。</li>
+<li>对于最关键的一步——求解迭代线性方程组，示例代码直接调用inv函数，也可以选用其他线性方程组数值求解的算法，如<strong>LU分解，共轭梯度法(CG)，全正交化法(FOM)及广义最小残量法(GMRES)，而且由于系数矩阵含有大量零元素，还可以利用稀疏矩阵算法进行优化。</strong></li>
 </ul>
+<p>线性方程组求解这部分将会在接下来的博文中继续介绍~</p>
+<pre><code>内容参考《电力系统潮流分析的计算机解法》课程课件，前辈博客，维基百科，及同学和自己的课程作业报告。
+</code></pre>
 
             </div>
             
