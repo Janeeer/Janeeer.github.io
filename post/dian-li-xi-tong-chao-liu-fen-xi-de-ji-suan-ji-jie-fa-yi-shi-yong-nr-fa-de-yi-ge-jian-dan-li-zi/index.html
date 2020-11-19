@@ -1,22 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://Janeeer.github.io</id>
-    <title>Elsemin Wei</title>
-    <updated>2020-11-19T17:00:46.240Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://Janeeer.github.io"/>
-    <link rel="self" href="https://Janeeer.github.io/atom.xml"/>
-    <subtitle>千里之行始于足下</subtitle>
-    <logo>https://Janeeer.github.io/images/avatar.png</logo>
-    <icon>https://Janeeer.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Elsemin Wei</rights>
-    <entry>
-        <title type="html"><![CDATA[电力系统潮流分析的计算机解法（一）使用NR法的一个简单例子]]></title>
-        <id>https://Janeeer.github.io/post/dian-li-xi-tong-chao-liu-fen-xi-de-ji-suan-ji-jie-fa-yi-shi-yong-nr-fa-de-yi-ge-jian-dan-li-zi/</id>
-        <link href="https://Janeeer.github.io/post/dian-li-xi-tong-chao-liu-fen-xi-de-ji-suan-ji-jie-fa-yi-shi-yong-nr-fa-de-yi-ge-jian-dan-li-zi/">
-        </link>
-        <updated>2020-11-19T16:18:29.000Z</updated>
-        <content type="html"><![CDATA[<p>潮流计算相关的文章有很多，本篇想用一个简单的例子展示Newton-Raphson法做潮流计算的过程，以便理解算法，理清潮流计算的思路。</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>电力系统潮流分析的计算机解法（一）使用NR法的一个简单例子 | Elsemin Wei</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://Janeeer.github.io/favicon.ico?v=1605805237931">
+<link rel="stylesheet" href="https://Janeeer.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="潮流计算相关的文章有很多，本篇想用一个简单的例子展示Newton-Raphson法做潮流计算的过程，以便理解算法，理清潮流计算的思路。
+简单介绍
+潮流问题是给出 负载端消耗的有功和无功功率，及发电机端的机端电压大小和注入有功功率，来获取电力..." />
+    <meta name="keywords" content="matlab,算法,潮流计算" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://Janeeer.github.io">
+        <img src="https://Janeeer.github.io/images/avatar.png?v=1605805237931" class="site-logo">
+        <h1 class="site-title">Elsemin Wei</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      千里之行始于足下
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://Janeeer.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">电力系统潮流分析的计算机解法（一）使用NR法的一个简单例子</h2>
+            <div class="post-date">2020-11-20</div>
+            
+            <div class="post-content" v-pre>
+              <p>潮流计算相关的文章有很多，本篇想用一个简单的例子展示Newton-Raphson法做潮流计算的过程，以便理解算法，理清潮流计算的思路。</p>
 <h2 id="简单介绍">简单介绍</h2>
 <p>潮流问题是给出 负载端消耗的有功和无功功率，及发电机端的机端电压大小和注入有功功率，来获取电力系统中 每个母线的电压相角和幅值信息，进一步可以通过数值确定每个分支上的有功和无功功率流以及发电机无功功率输出。也就是最终可以画出类似这样的运行示意图：<br>
 <img src="https://Janeeer.github.io/post-images/1605803198010.png" alt="" loading="lazy"><br>
@@ -108,38 +188,91 @@ matlab代码实现如下：首先列写P、Q及雅可比矩阵J与U、θ 的关�
 <p>线性方程组求解这部分将会在接下来的博文中继续介绍~</p>
 </li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello]]></title>
-        <id>https://Janeeer.github.io/post/hello/</id>
-        <link href="https://Janeeer.github.io/post/hello/">
-        </link>
-        <updated>2020-11-16T07:29:48.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
-]]></content>
-    </entry>
-</feed>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://Janeeer.github.io/tag/matlab/" class="tag">
+                    matlab
+                  </a>
+                
+                  <a href="https://Janeeer.github.io/tag/suan-fa/" class="tag">
+                    算法
+                  </a>
+                
+                  <a href="https://Janeeer.github.io/tag/chao-liu-ji-suan/" class="tag">
+                    潮流计算
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://Janeeer.github.io/post/hello/">
+                  <h3 class="post-title">
+                    Hello
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '5d3c926ae351bc302e4f',
+        clientSecret: '77ee869d32f859ceb93aab470798d87651f5b1f5',
+        repo: 'janeeer.github.io',
+        owner: 'janeeer',
+        admin: ['janeeer'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
