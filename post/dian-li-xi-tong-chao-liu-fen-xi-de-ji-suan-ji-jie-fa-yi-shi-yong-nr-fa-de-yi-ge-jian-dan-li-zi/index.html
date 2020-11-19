@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://Janeeer.github.io/favicon.ico?v=1605806054160">
+<link rel="shortcut icon" href="https://Janeeer.github.io/favicon.ico?v=1605806999774">
 <link rel="stylesheet" href="https://Janeeer.github.io/styles/main.css">
 
 
@@ -37,7 +37,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://Janeeer.github.io">
-        <img src="https://Janeeer.github.io/images/avatar.png?v=1605806054160" class="site-logo">
+        <img src="https://Janeeer.github.io/images/avatar.png?v=1605806999774" class="site-logo">
         <h1 class="site-title">Jane Wei</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -149,29 +149,30 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <p><img src="https://Janeeer.github.io/post-images/1605803678942.png" alt="" loading="lazy"><br>
 这是一个两节点的网络，根据题意可得到一个2x2节点导纳矩阵，题中line charging 5MVAr可以算线路对地导纳，15MVAr算无功补偿的电容的参数。节点1是Vθ节点，节点2是PQ节点。<br>
 matlab代码实现如下：首先列写P、Q及雅可比矩阵J与U、θ 的关系式，U、θ 是系统变量。<br>
-(Gridea似乎不能高亮代码块，将就一下先)<br>
-<code>syms theta U;</code><br>
-<code>x=[theta;U];</code><br>
-<code>Psp=-1.2;Qsp=-0.5;%dPQ=[0;0]</code><br>
-<code>U1=1.05;x1=0;</code><br>
-<code>G21=-5;B21=15;G22=5;B22=-14.8;</code><br>
-<code>deltaP=Psp-U*(U1*(G21*cos(theta-x1)+B21*sin(theta-x1))+U*G22);</code><br>
-<code>deltaQ=Qsp-U*(U1*(G21*sin(theta-x1)-B21*cos(theta-x1))+U*(-B22));</code><br>
-<code>deltaPQ=[deltaP;deltaQ];</code><br>
-<code>J=jacobian(deltaPQ,x);</code><br>
-<code></code><br>
-<code>xx=[0.0;1.0];%initial value</code><br>
-<code>dx=[1;1];</code><br>
-<code>time=0;</code><br>
-<code>while norm(dx)&gt;1e-3</code><br>
-<code>dPQ=eval(subs(deltaPQ,x,xx));</code><br>
-<code>JJ=eval(subs(J,x,xx));</code><br>
-<code>dx=-inv(JJ)*dPQ;</code><br>
-<code>xx=xx+dx;</code><br>
-<code>vpa(xx,8) %display format</code><br>
-<code>time=time+1;</code><br>
-<code>end</code><br>
-运行结果：<br>
+syms theta U;<br>
+x=[theta;U];<br>
+Psp=-1.2;Qsp=-0.5;%dPQ=[0;0]</p>
+<pre><code>U1=1.05;x1=0;
+G21=-5;B21=15;G22=5;B22=-14.8;
+
+deltaP=Psp-U*(U1*(G21*cos(theta-x1)+B21*sin(theta-x1))+U*G22);
+deltaQ=Qsp-U*(U1*(G21*sin(theta-x1)-B21*cos(theta-x1))+U*(-B22));
+deltaPQ=[deltaP;deltaQ];
+J=jacobian(deltaPQ,x);
+
+xx=[0.0;1.0];%initial value
+dx=[1;1];
+time=0; 
+while norm(dx)&gt;1e-3
+dPQ=eval(subs(deltaPQ,x,xx));
+JJ=eval(subs(J,x,xx));
+dx=-inv(JJ)*dPQ;
+xx=xx+dx;
+vpa(xx,8) %display format
+time=time+1;
+end
+</code></pre>
+<p>运行结果：<br>
 -0.06254873<br>
 1.0063646</p>
 <p>可以看到，示例代码里调用了很多matlab自带的函数，其中有几处可以继续做文章：</p>
@@ -182,8 +183,7 @@ matlab代码实现如下：首先列写P、Q及雅可比矩阵J与U、θ 的关�
 <li>对于最关键的一步——求解迭代线性方程组，示例代码直接调用inv函数，也可以选用其他线性方程组数值求解的算法，如<strong>LU分解，共轭梯度法(CG)，全正交化法(FOM)及广义最小残量法(GMRES)，而且由于系数矩阵含有大量零元素，还可以利用稀疏矩阵算法进行优化。</strong></li>
 </ul>
 <p>线性方程组求解这部分将会在接下来的博文中继续介绍~</p>
-<pre><code>内容参考《电力系统潮流分析的计算机解法》课程课件，前辈博客，维基百科，及同学和自己的课程作业报告。
-</code></pre>
+<p><em>内容参考《电力系统潮流分析的计算机解法》课程课件，前辈博客，维基百科，及同学和自己的课程作业报告。</em></p>
 
             </div>
             
