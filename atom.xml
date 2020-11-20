@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://Janeeer.github.io</id>
     <title>Jane Wei</title>
-    <updated>2020-11-19T17:30:13.475Z</updated>
+    <updated>2020-11-20T02:37:12.675Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://Janeeer.github.io"/>
     <link rel="self" href="https://Janeeer.github.io/atom.xml"/>
@@ -69,13 +69,12 @@ c-16-25.333-24-45-24-59z'/></svg></span></span></span></span></span></span></spa
 <h2 id="一个使用nr法的简单栗子">一个使用NR法的简单栗子</h2>
 <p><img src="https://Janeeer.github.io/post-images/1605803678942.png" alt="" loading="lazy"><br>
 这是一个两节点的网络，根据题意可得到一个2x2节点导纳矩阵，题中line charging 5MVAr可以算线路对地导纳，15MVAr算无功补偿的电容的参数。节点1是Vθ节点，节点2是PQ节点。<br>
-matlab代码实现如下：首先列写P、Q及雅可比矩阵J与U、θ 的关系式，U、θ 是系统变量。<br>
-syms theta U;<br>
-x=[theta;U];<br>
-Psp=-1.2;Qsp=-0.5;%dPQ=[0;0]</p>
-<pre><code>U1=1.05;x1=0;
+matlab代码实现如下：首先列写P、Q及雅可比矩阵J与U、θ 的关系式，U、θ 是系统变量。</p>
+<pre><code>syms theta U;
+x=[theta;U]; 
+Psp=-1.2;Qsp=-0.5;%dPQ=[0;0]
+U1=1.05;x1=0;
 G21=-5;B21=15;G22=5;B22=-14.8;
-
 deltaP=Psp-U*(U1*(G21*cos(theta-x1)+B21*sin(theta-x1))+U*G22);
 deltaQ=Qsp-U*(U1*(G21*sin(theta-x1)-B21*cos(theta-x1))+U*(-B22));
 deltaPQ=[deltaP;deltaQ];
